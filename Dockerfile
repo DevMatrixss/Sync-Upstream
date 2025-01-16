@@ -11,6 +11,8 @@ WORKDIR /home/builder
 
 COPY *.sh /home/builder/
 
+RUN chmod -R 775 /home/builder  # 'builder' यूज़र को लिखने की अनुमति देना
+
 RUN chmod +x /home/builder/*.sh
 
 USER builder
