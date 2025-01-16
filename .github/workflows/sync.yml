@@ -1,0 +1,26 @@
+name: Sync Fork with Upstream Repository
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  UPSTREAM_REPO: https://github.com/owner/repo.git
+  UPSTREAM_BRANCH: main
+  DOWNSTREAM_BRANCH: feature-branch
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync_fork:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Run Sync Fork with Upstream Repository Action
+      uses: ./  
+      with:
+        github_token: ${{ env.GITHUB_TOKEN }}
+        upstream_repo: ${{ env.UPSTREAM_REPO }}
+        upstream_branch: ${{ env.UPSTREAM_BRANCH }}
+        downstream_branch: ${{ env.DOWNSTREAM_BRANCH }}
