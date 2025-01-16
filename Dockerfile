@@ -1,20 +1,18 @@
-# Use Alpine Linux as the base image
 FROM alpine:latest
 
-# Install dependencies (git, bash, and curl)
-RUN apk update && apk add --no-cache \
-  git \
-  bash \
-  curl
+RUN apk update && \
+    apk add --no-cache \
+    git \
+    curl
 
-# Set the working directory
-WORKDIR /action
+# /DevMatrixss नामक कार्य निर्देशिका को सेट करें (यदि यह पहले से मौजूद नहीं है, तो इसे बना देगा)
+WORKDIR /DevMatrixss
 
-# Copy the entrypoint.sh script into the container
-COPY entrypoint.sh /action/entrypoint.sh
+# entrypoint.sh स्क्रिप्ट को /DevMatrixss में कॉपी करें
+COPY entrypoint.sh /DevMatrixss/entrypoint.sh
 
-# Make the entrypoint.sh script executable
-RUN chmod +x /action/entrypoint.sh
+# स्क्रिप्ट को executable बनाएं
+RUN chmod +x /DevMatrixss/entrypoint.sh
 
-# Set the entrypoint to use the script
-ENTRYPOINT ["/action/entrypoint.sh"]
+# कंटेनर के लिए एंटरपॉइंट सेट करें
+ENTRYPOINT ["/DevMatrixss/entrypoint.sh"]
