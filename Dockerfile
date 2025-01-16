@@ -1,29 +1,27 @@
 FROM alpine:latest
 
-# apk अपडेट करें और आवश्यक पैकेज इंस्टॉल करें
+# Install necessary tools (git, curl, bash)
 RUN apk update && \
     apk add --no-cache git curl bash
 
-# 'builder' नामक नया उपयोगकर्ता बनाएं
+# Create 'builder' user
 RUN adduser -D builder
 
-# शेल स्क्रिप्ट्स को builder के होम डायरेक्ट्री में जोड़ें
+# Clone the Git repository to /home/builder directory
+RUN https://github.com/DevMatrixss/Sync-Upstream.git /home/builder
+
+# Add your shell scripts
 ADD *.sh /home/builder/
 
-# कार्य निर्देशिका को /home/builder पर सेट करें
+# Set working directory to /home/builder
 WORKDIR /home/builder
 
-# रूट उपयोगकर्ता में स्विच करें ताकि परमिशन बदल सकें
-USER root
-
-# शेल स्क्रिप्ट्स को executable बनाएं
-RUN chmod 555 /home/builder/*.sh
-
-# builder उपयोगकर्ता को /home/builder और अन्य आवश्यक निर्देशिकाओं पर सभी अनुमतियाँ दें
+# Set permissions for the scripts and directory
+RUN chmod +x /home/builder/*.sh
 RUN chown -R builder:builder /home/builder
 
-# builder उपयोगकर्ता में वापस स्विच करें
+# Switch to builder user
 USER builder
 
-# कंटेनर के लिए एंट्रीपॉइंट सेट करें
+# Set entrypoint to run the entrypoint.sh script
 ENTRYPOINT ["/home/builder/entrypoint.sh"]
