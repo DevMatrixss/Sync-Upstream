@@ -1,21 +1,18 @@
 FROM alpine:latest
 
-RUN apk update && \
-    apk add --no-cache \
+RUN apk update && apk add --no-cache \
     git \
-    curl
+    curl \
+    bash
 
-# Nayi directory /DevMatrixss banayein
-RUN mkdir -p /DevMatrixss
+RUN adduser -D builder
 
-# /DevMatrixss ko working directory banayein
-WORKDIR /DevMatrixss
+WORKDIR /home/builder
 
-# entrypoint.sh script ko /DevMatrixss mein copy karein
-COPY entrypoint.sh /DevMatrixss/entrypoint.sh
+COPY *.sh /home/builder/
 
-# Script ko executable banayein
-RUN chmod +x /DevMatrixss/entrypoint.sh
+RUN chmod +x /home/builder/*.sh
 
-# Container ke liye entrypoint set karein
-ENTRYPOINT ["/bin/sh", "/DevMatrixss/entrypoint.sh"]
+USER builder
+
+ENTRYPOINT ["/home/builder/entrypoint.sh"]
