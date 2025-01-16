@@ -11,6 +11,4 @@ WORKDIR /home/builder
 
 USER builder
 
-RUN chmod 555 /home/builder/*.sh
-
-ENTRYPOINT ["/home/builder/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "-c", "chmod 555 /home/builder/*.sh && /home/builder/entrypoint.sh"]
