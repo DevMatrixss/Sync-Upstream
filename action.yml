@@ -19,7 +19,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.github_tooken }}
+    - ${{ inputs.github_token }}
     - ${{ inputs.upstream_repo }}
     - ${{ inputs.upstream_branch }}
     - ${{ inputs.downstream_branch }}
