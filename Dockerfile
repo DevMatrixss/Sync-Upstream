@@ -1,14 +1,20 @@
+# Use Alpine Linux as the base image
 FROM alpine:latest
 
-RUN apk update && \
-    apk add --no-cache \
-    git \
-    curl
+# Install dependencies (git, bash, and curl)
+RUN apk update && apk add --no-cache \
+  git \
+  bash \
+  curl
 
-WORKDIR /DevMatrixss
+# Set the working directory
+WORKDIR /action
 
-COPY entrypoint.sh /DevMatrixss/entrypoint.sh
+# Copy the entrypoint.sh script into the container
+COPY entrypoint.sh /action/entrypoint.sh
 
-RUN chmod +x /DevMatrixss/entrypoint.sh
+# Make the entrypoint.sh script executable
+RUN chmod +x /action/entrypoint.sh
 
-ENTRYPOINT ["/DevMatrixss/entrypoint.sh"]
+# Set the entrypoint to use the script
+ENTRYPOINT ["/action/entrypoint.sh"]
