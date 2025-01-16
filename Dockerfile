@@ -20,8 +20,7 @@ USER root
 RUN chmod 555 /home/builder/*.sh
 
 # builder उपयोगकर्ता को /home/builder और अन्य आवश्यक निर्देशिकाओं पर सभी अनुमतियाँ दें
-RUN chown -R builder:builder /home/builder && \
-    chmod -R 777 /home/builder
+RUN chown -R builder:builder /home/builder
 
 # builder उपयोगकर्ता में वापस स्विच करें
 USER builder
