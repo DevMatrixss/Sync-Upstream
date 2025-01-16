@@ -1,14 +1,14 @@
 FROM alpine:latest
 
-RUN apk add --no-cache \
-  git \
-  curl \
-  bash
+RUN apk update && \
+    apk add --no-cache \
+    git \
+    curl
 
-WORKDIR /usr/local/bin/action
+WORKDIR /DevMatrixss
 
-COPY entrypoint.sh .
+COPY entrypoint.sh /DevMatrixss/entrypoint.sh
 
-RUN chmod +x entrypoint.sh
+RUN chmod +x /DevMatrixss/entrypoint.sh
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/DevMatrixss/entrypoint.sh"]
