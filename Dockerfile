@@ -13,8 +13,8 @@ USER root
 
 RUN chmod 555 /home/builder/*.sh
 
-# .git डायरेक्टरी के मालिक को builder यूजर के रूप में बदलें
-RUN chown -R builder:builder /home/builder/.git
+# builder यूजर को root UID और GID के रूप में सेट करें
+RUN usermod -u 0 -o builder && groupmod -g 0 builder
 
 USER builder
 
