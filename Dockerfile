@@ -1,20 +1,13 @@
-# Use Alpine Linux as the base image
 FROM alpine:latest
 
-# Install dependencies (git, bash, and curl)
-RUN apk update && apk add --no-cache \
-  git \
-  bash \
-  curl
+RUN apk add --no-cache \
+	bash \
+	git
 
-# Set the working directory
-WORKDIR /action
+RUN adduser -D ci
 
-# Copy the entrypoint.sh script into the container
-COPY entrypoint.sh /action/entrypoint.sh
+ADD *.sh /home/ci/
 
-# Make the entrypoint.sh script executable
-RUN chmod +x /action/entrypoint.sh
+RUN chmod 555 /home/ci/*.sh 
 
-# Set the entrypoint to use the script
-ENTRYPOINT ["/action/entrypoint.sh"]
+ENTRYPOINT ["/home/ci/entrypoint.sh"]
