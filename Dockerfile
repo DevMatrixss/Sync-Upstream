@@ -9,6 +9,10 @@ ADD *.sh /home/builder/
 
 WORKDIR /home/builder
 
+USER root
+
+RUN chmod 555 /home/builder/*.sh
+
 USER builder
 
-ENTRYPOINT ["/bin/sh", "-c", "chmod 555 /home/builder/*.sh && /home/builder/entrypoint.sh"]
+ENTRYPOINT ["/home/builder/entrypoint.sh"]
