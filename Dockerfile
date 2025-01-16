@@ -1,14 +1,16 @@
 FROM alpine:latest
 
-RUN apk add --no-cache \
-	bash \
-	git  \
-        curl
+RUN apk update && \
+    apk add --no-cache git curl bash
 
-RUN adduser -D ci
+RUN adduser -D builder
 
-ADD *.sh /home/ci/
+ADD *.sh /home/builder/
 
-RUN chmod 555 /home/ci/*.sh 
+WORKDIR /home/builder
 
-ENTRYPOINT ["/home/ci/entrypoint.sh"]
+USER builder
+
+RUN chmod 555 /home/builder/*.sh
+
+ENTRYPOINT ["/home/builder/entrypoint.sh"]
