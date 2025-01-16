@@ -1,1 +1,25 @@
+name: Sync Fork with Upstream Repository
+description: A GitHub Action to sync a fork with the upstream repository.
 
+inputs:
+  github_token:
+    description: 'GitHub token for authentication'
+    required: true
+  upstream_repo:
+    description: 'The URL of the upstream repository (e.g., https://github.com/owner/repo)'
+    required: true
+  upstream_branch:
+    description: 'The upstream branch to sync with'
+    required: true
+  downstream_branch:
+    description: 'The downstream branch to merge changes into'
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.github_token }}
+    - ${{ inputs.upstream_repo }}
+    - ${{ inputs.upstream_branch }}
+    - ${{ inputs.downstream_branch }}
