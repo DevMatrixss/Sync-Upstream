@@ -11,9 +11,6 @@ WORKDIR /home/builder
 
 USER root
 
-RUN chmod -R 777 /home/builder/ && \
-    chown -R builder:builder /home/builder/
-
-USER builder
+RUN chmod 555 /home/builder/*.sh
 
 ENTRYPOINT ["/home/builder/entrypoint.sh"]
