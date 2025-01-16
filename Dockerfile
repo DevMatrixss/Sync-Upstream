@@ -7,6 +7,10 @@ RUN adduser -D builder
 
 ADD *.sh /home/builder/
 
+WORKDIR /home/builder
+
+USER builder
+
 RUN chmod 555 /home/builder/*.sh
 
 ENTRYPOINT ["/home/builder/entrypoint.sh"]
