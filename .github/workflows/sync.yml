@@ -1,10 +1,10 @@
 name: Sync Fork with Upstream Repository
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  UPSTREAM_REPO: https://github.com/owner/repo.git
+  USER_TOKEN: ${{ secrets.USER_TOKEN }}
+  UPSTREAM_REPO: https://github.com/j-hc/revanced-magisk-module.git
   UPSTREAM_BRANCH: main
-  DOWNSTREAM_BRANCH: feature-branch
+  DOWNSTREAM_BRANCH: main
 
 on:
   workflow_dispatch:
@@ -20,7 +20,7 @@ jobs:
     - name: Run Sync Fork with Upstream Repository Action
       uses: ./  
       with:
-        github_token: ${{ env.GITHUB_TOKEN }}
+        github_token: ${{ env.USER_TOKEN }}
         upstream_repo: ${{ env.UPSTREAM_REPO }}
         upstream_branch: ${{ env.UPSTREAM_BRANCH }}
         downstream_branch: ${{ env.DOWNSTREAM_BRANCH }}
