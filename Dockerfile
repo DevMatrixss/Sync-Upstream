@@ -18,4 +18,4 @@ COPY entrypoint.sh /DevMatrixss/entrypoint.sh
 RUN chmod +x /DevMatrixss/entrypoint.sh
 
 # Container ke liye entrypoint set karein
-ENTRYPOINT ["/DevMatrixss/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "/DevMatrixss/entrypoint.sh"]
