@@ -11,7 +11,8 @@ WORKDIR /home/builder
 
 USER root
 
-RUN chmod 755 /home/builder/*.sh  # Read, Write, and Execute for owner, Read and Execute for group and others
+RUN chmod 755 /home/builder/*.sh && \
+    chown builder:builder /home/builder/*.sh  # Set the owner to builder
 
 USER builder
 
