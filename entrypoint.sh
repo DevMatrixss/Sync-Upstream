@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 set -x  # Enable exit on error, so script stops on any failure
@@ -57,6 +58,15 @@ fi
 echo "Cloning the forked repository..."
 echo "git clone https://x-access-token:$GITHUB_TOKEN@github.com/${GITHUB_REPOSITORY}.git forked-repo"
 git clone https://x-access-token:$GITHUB_TOKEN@github.com/${GITHUB_REPOSITORY}.git forked-repo
+
+# Check if the cloning was successful
+if [[ ! -d "forked-repo" ]]; then
+  echo "गलती: रिपॉजिटरी क्लोन नहीं हुई। स्क्रिप्ट समाप्त हो रही है।"
+  exit 1
+else
+  echo "रिपॉजिटरी सफलतापूर्वक क्लोन हो गई।"
+fi
+
 cd forked-repo
 
 # Configure Git using GitHub Actor
