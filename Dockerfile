@@ -19,17 +19,15 @@ RUN addgroup -g $USER_GID $USERNAME \
     && mkdir -p /home/$USERNAME/.ssh \ 
     && chown -R $USERNAME:$USERNAME /home/$USERNAME
 
+# स्क्रिप्ट को रूट उपयोगकर्ता के रूप में कॉपी करें और निष्पादन अनुमति सेट करें
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # नॉन-रूट उपयोगकर्ता में स्विच करें
 USER $USERNAME
 
 # कार्यशील डाइरेक्टरी सेट करें
 WORKDIR /home/$USERNAME
-
-# केवल entrypoint.sh स्क्रिप्ट को कॉपी करें
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-
-# यह सुनिश्चित करें कि स्क्रिप्ट निष्पादन योग्य है
-RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # एंट्रीपॉइंट सेट करें
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
