@@ -11,6 +11,8 @@ WORKDIR /home/builder
 
 USER builder
 
+RUN ls -l /home/builder/  # जांचें कि फ़ाइलें सही ढंग से कॉपी हो रही हैं
+
 RUN chmod +x /home/builder/*.sh
 
 ENTRYPOINT ["/home/builder/entrypoint.sh"]
