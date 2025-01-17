@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -x
 
 GITHUB_TOKEN=$1
 UPSTREAM_REPO=$2
