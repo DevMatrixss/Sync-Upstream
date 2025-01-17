@@ -1,16 +1,35 @@
+# बेस इमेज
 FROM alpine:latest
 
-RUN apk update && \
-    apk add --no-cache git curl bash
+# आवश्यक डिपेंडेंसी इंस्टॉल करें
+RUN apk add --no-cache \
+    git \                # गिट इंस्टॉल करें
+    curl \               # कर्ल इंस्टॉल करें
+    bash \               # बाश इंस्टॉल करें
+    ca-certificates \    # SSL प्रमाणपत्रों के लिए
+    shadow               # उपयोगकर्ता प्रबंधन के लिए
 
-RUN adduser -D builder
+# कस्टम (नॉन-रूट) उपयोगकर्ता जोड़ें
+ARG USERNAME=customuser
+ARG USER_UID=1001
+ARG USER_GID=1001
 
-ADD *.sh /home/builder/
+RUN addgroup -g $USER_GID $USERNAME \ 
+    && adduser -D -u $USER_UID -G $USERNAME $USERNAME \ 
+    && mkdir -p /home/$USERNAME/.ssh \ 
+    && chown -R $USERNAME:$USERNAME /home/$USERNAME
 
-WORKDIR /home/builder
+# नॉन-रूट उपयोगकर्ता में स्विच करें
+USER $USERNAME
 
-USER root
+# कार्यशील डाइरेक्टरी सेट करें
+WORKDIR /home/$USERNAME
 
-RUN chmod 555 /home/builder/*.sh
+# केवल entrypoint.sh स्क्रिप्ट को कॉपी करें
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
-ENTRYPOINT ["/home/builder/entrypoint.sh"]
+# यह सुनिश्चित करें कि स्क्रिप्ट निष्पादन योग्य है
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# एंट्रीपॉइंट सेट करें
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
