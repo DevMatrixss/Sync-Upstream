@@ -26,16 +26,13 @@ if [[ -z "$DOWNSTREAM_BRANCH" ]]; then
   exit 1; 
 fi
 
-# Validate GitHub Token by making an authenticated request to the GitHub API
-echo "Validating GitHub token..."
-RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user)
-echo "GitHub Token validation response: $RESPONSE"
+# Validate token by calling GitHub API
+echo "Validating token..."
+VALID_TOKEN=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token ${GITHUB_TOKEN}" https://api.github.com/user)
 
-if [[ "$RESPONSE" -ne 200 ]]; then
-  echo "Invalid GitHub token. HTTP Response: $RESPONSE"
-  exit 1  # If the token is invalid, the script will exit here
-else
-  echo "GitHub token is valid."
+if [[ "$VALID_TOKEN" != "200" ]]; then
+  echo "Invalid token. Exiting."
+  exit 1
 fi
 
 # Echo the parameters being used
