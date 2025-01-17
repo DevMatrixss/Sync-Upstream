@@ -88,13 +88,16 @@ echo "Merging upstream branch: $UPSTREAM_BRANCH into downstream branch: $DOWNSTR
 echo "git merge upstream/$UPSTREAM_BRANCH"
 git merge upstream/$UPSTREAM_BRANCH
 
-# Check if merge resulted in conflicts
+# Check for merge conflicts
 if [[ $? -ne 0 ]]; then
     echo "Merge conflict detected. Please resolve conflicts manually."
-    echo "Once conflicts are resolved, run the following commands:"
-    echo "  git add ."
-    echo "  git commit -m \"Resolved merge conflicts\""
-    echo "  git push origin $DOWNSTREAM_BRANCH"
+    echo "Merge conflicts occurred during merging upstream branch: $UPSTREAM_BRANCH into downstream branch: $DOWNSTREAM_BRANCH."
+    echo "Please follow these steps to resolve conflicts:"
+    echo "  1. Open the conflicted files and manually resolve the conflicts."
+    echo "  2. Once resolved, run the following commands:"
+    echo "    git add ."
+    echo "    git commit -m \"Resolved merge conflicts\""
+    echo "    git push origin $DOWNSTREAM_BRANCH"
     exit 1
 else
     echo "Merge completed successfully."
