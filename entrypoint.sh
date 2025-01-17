@@ -90,6 +90,10 @@ git merge upstream/$UPSTREAM_BRANCH
 
 if [[ $? -ne 0 ]]; then
     echo "Merge conflict detected. Please resolve conflicts manually."
+    exit 1
+else
+    echo "Merge completed successfully."
+fi
 
 echo "Checking for changes to push..."
 echo "git status --porcelain"
