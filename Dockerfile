@@ -1,12 +1,16 @@
 FROM alpine:latest
 
-RUN apk add --no-cache git curl bash ca-certificates shadow && \
-    adduser -D builder
+RUN apk update && \
+    apk add --no-cache git curl bash
 
-COPY entrypoint.sh /home/builder/
-RUN chmod +x /home/builder/entrypoint.sh && \
-    chown -R builder /home/builder
+RUN adduser -D -u 1001 builder
+
+ADD *.sh /home/builder/
+
+WORKDIR /home/builder
 
 USER builder
-WORKDIR /home/builder
-ENTRYPOINT ["./entrypoint.sh"]
+
+RUN chmod 555 /home/builder/*.sh
+
+ENTRYPOINT ["/home/builder/entrypoint.sh"]
