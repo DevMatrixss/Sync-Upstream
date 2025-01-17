@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 set -x  # Enable exit on error, so script stops on any failure
