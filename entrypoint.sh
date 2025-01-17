@@ -29,6 +29,7 @@ fi
 # Validate token by calling GitHub API
 echo "Validating token..."
 VALID_TOKEN=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token ${GITHUB_TOKEN}" https://api.github.com/user)
+echo "Response code from GitHub API: $VALID_TOKEN"
 
 if [[ "$VALID_TOKEN" != "200" ]]; then
   echo "Invalid token. Exiting."
@@ -57,13 +58,6 @@ echo "Cloning the forked repository..."
 echo "git clone https://x-access-token:$GITHUB_TOKEN@github.com/${GITHUB_REPOSITORY}.git forked-repo"
 git clone https://x-access-token:$GITHUB_TOKEN@github.com/${GITHUB_REPOSITORY}.git forked-repo
 cd forked-repo
-
-# Ensure that the cloned repository exists
-echo "Checking if 'forked-repo' directory exists..."
-if [[ ! -d "forked-repo" ]]; then
-  echo "Error: Repository clone failed. Directory 'forked-repo' does not exist."
-  exit 1
-fi
 
 # Configure Git using GitHub Actor
 echo "Configuring Git with GitHub Actor details..."
