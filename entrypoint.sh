@@ -88,6 +88,9 @@ echo "Merging upstream branch: $UPSTREAM_BRANCH into downstream branch: $DOWNSTR
 echo "git merge upstream/$UPSTREAM_BRANCH"
 git merge upstream/$UPSTREAM_BRANCH
 
+if [[ $? -ne 0 ]]; then
+    echo "Merge conflict detected. Please resolve conflicts manually."
+
 echo "Checking for changes to push..."
 echo "git status --porcelain"
 CHANGES=$(git status --porcelain)
