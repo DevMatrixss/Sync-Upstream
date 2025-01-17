@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # Enable exit on error, so script stops on any failure
+set -x  # Enable exit on error, so script stops on any failure
 
 # Input parameters
 GITHUB_TOKEN=$1
