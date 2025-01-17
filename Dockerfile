@@ -1,13 +1,14 @@
 FROM alpine:latest
 
-RUN apk update && \
-    apk add --no-cache git curl bash ca-certificates shadow
+RUN apk add --no-cache \
+    git \
+    curl \
+    bash
 
-RUN adduser -D builder
+RUN adduser -D -u 1001 builder
 
 COPY ./*.sh /home/builder/
 
-# बदल दिया गया स्थान: chmod को COPY के बाद रखा गया
 RUN chmod +x /home/builder/*.sh
 
 WORKDIR /home/builder
