@@ -7,10 +7,11 @@ RUN adduser -D -u 1001 builder
 
 COPY ./*.sh /home/builder/
 
+# बदल दिया गया स्थान: chmod को COPY के बाद रखा गया
+RUN chmod +x /home/builder/*.sh
+
 WORKDIR /home/builder
 
 USER builder
-
-RUN chmod +x /home/builder/*.sh
 
 ENTRYPOINT ["/home/builder/entrypoint.sh"]
