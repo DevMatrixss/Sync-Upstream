@@ -3,11 +3,11 @@ FROM alpine:latest
 
 # आवश्यक डिपेंडेंसी इंस्टॉल करें
 RUN apk add --no-cache \
-    git \                # गिट इंस्टॉल करें
-    curl \               # कर्ल इंस्टॉल करें
-    bash \               # बाश इंस्टॉल करें
-    ca-certificates \    # SSL प्रमाणपत्रों के लिए
-    shadow               # उपयोगकर्ता प्रबंधन के लिए
+    git \
+    curl \
+    bash \
+    ca-certificates \
+    shadow
 
 # कस्टम (नॉन-रूट) उपयोगकर्ता जोड़ें
 ARG USERNAME=customuser
