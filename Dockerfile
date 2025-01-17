@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 RUN apk update && \
-    apk add --no-cache git curl bash ca-certificates shadow
+    apk add --no-cache git curl bash ca-certificates
 
 RUN adduser -D -u 1001 builder
 
