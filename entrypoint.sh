@@ -33,6 +33,8 @@ VALID_TOKEN=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token ${
 if [[ "$VALID_TOKEN" != "200" ]]; then
   echo "Invalid token. Exiting."
   exit 1
+else
+  echo "Token is valid."
 fi
 
 # Echo the parameters being used
