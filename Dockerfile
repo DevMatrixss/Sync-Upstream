@@ -1,9 +1,9 @@
 FROM alpine:latest
 
 RUN apk update && \
-    apk add --no-cache git curl bash
+    apk add --no-cache git curl bash ca-certificates shadow
 
-RUN adduser -D -u 1001 builder
+RUN adduser -D builder
 
 COPY ./*.sh /home/builder/
 
