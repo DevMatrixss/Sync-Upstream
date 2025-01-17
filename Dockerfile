@@ -5,7 +5,7 @@ RUN apk update && \
 
 RUN adduser -D -u 1001 builder
 
-COPY *.sh /home/builder/
+COPY ./*.sh /home/builder/
 
 WORKDIR /home/builder
 
